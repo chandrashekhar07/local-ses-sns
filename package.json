@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "bun run --hot src/index.ts"
+    "dev": "bun run --hot src/index.ts --port 5350"
   },
   "dependencies": {
     "hono": "^4.2.3",
