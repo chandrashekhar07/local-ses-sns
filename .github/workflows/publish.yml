@@ -55,21 +55,21 @@ jobs:
           docker build \
             -f Dockerfile \
             --progress=plain \
-            -t "unsend/local-ses-sns-$BUILD_PLATFORM:latest" \
-            -t "unsend/local-ses-sns-$BUILD_PLATFORM:$GIT_SHA" \
-            -t "unsend/local-ses-sns-$BUILD_PLATFORM:$APP_VERSION" \
-            -t "ghcr.io/unsend-dev/local-ses-sns-$BUILD_PLATFORM:latest" \
-            -t "ghcr.io/unsend-dev/local-ses-sns-$BUILD_PLATFORM:$GIT_SHA" \
-            -t "ghcr.io/unsend-dev/local-ses-sns-$BUILD_PLATFORM:$APP_VERSION" \
+            -t "usesend/local-ses-sns-$BUILD_PLATFORM:latest" \
+            -t "usesend/local-ses-sns-$BUILD_PLATFORM:$GIT_SHA" \
+            -t "usesend/local-ses-sns-$BUILD_PLATFORM:$APP_VERSION" \
+            -t "ghcr.io/usesend/local-ses-sns-$BUILD_PLATFORM:latest" \
+            -t "ghcr.io/usesend/local-ses-sns-$BUILD_PLATFORM:$GIT_SHA" \
+            -t "ghcr.io/usesend/local-ses-sns-$BUILD_PLATFORM:$APP_VERSION" \
             .
 
       - name: Push the docker image to DockerHub
-        run: docker push --all-tags "unsend/local-ses-sns-$BUILD_PLATFORM"
+        run: docker push --all-tags "usesend/local-ses-sns-$BUILD_PLATFORM"
         env:
           BUILD_PLATFORM: ${{ matrix.os == 'warp-ubuntu-latest-arm64-2x' && 'arm64' || 'amd64' }}
 
       - name: Push the docker image to GitHub Container Registry
-        run: docker push --all-tags "ghcr.io/unsend-dev/local-ses-sns-$BUILD_PLATFORM"
+        run: docker push --all-tags "ghcr.io/usesend/local-ses-sns-$BUILD_PLATFORM"
         env:
           BUILD_PLATFORM: ${{ matrix.os == 'warp-ubuntu-latest-arm64-2x' && 'arm64' || 'amd64' }}
 
@@ -104,23 +104,23 @@ jobs:
           GIT_SHA="$(git rev-parse HEAD)"
 
           docker manifest create \
-            unsend/local-ses-sns:latest \
-            --amend unsend/local-ses-sns-amd64:latest \
-            --amend unsend/local-ses-sns-arm64:latest
+            usesend/local-ses-sns:latest \
+            --amend usesend/local-ses-sns-amd64:latest \
+            --amend usesend/local-ses-sns-arm64:latest
 
           docker manifest create \
-            unsend/local-ses-sns:$GIT_SHA \
-            --amend unsend/local-ses-sns-amd64:$GIT_SHA \
-            --amend unsend/local-ses-sns-arm64:$GIT_SHA
+            usesend/local-ses-sns:$GIT_SHA \
+            --amend usesend/local-ses-sns-amd64:$GIT_SHA \
+            --amend usesend/local-ses-sns-arm64:$GIT_SHA
 
           docker manifest create \
-            unsend/local-ses-sns:$APP_VERSION \
-            --amend unsend/local-ses-sns-amd64:$APP_VERSION \
-            --amend unsend/local-ses-sns-arm64:$APP_VERSION
+            usesend/local-ses-sns:$APP_VERSION \
+            --amend usesend/local-ses-sns-amd64:$APP_VERSION \
+            --amend usesend/local-ses-sns-arm64:$APP_VERSION
 
-          docker manifest push unsend/local-ses-sns:latest
-          docker manifest push unsend/local-ses-sns:$GIT_SHA
-          docker manifest push unsend/local-ses-sns:$APP_VERSION
+          docker manifest push usesend/local-ses-sns:latest
+          docker manifest push usesend/local-ses-sns:$GIT_SHA
+          docker manifest push usesend/local-ses-sns:$APP_VERSION
 
       - name: Create and push Github Container Registry manifest
         run: |
@@ -128,20 +128,20 @@ jobs:
           GIT_SHA="$(git rev-parse HEAD)"
 
           docker manifest create \
-            ghcr.io/unsend-dev/local-ses-sns:latest \
-            --amend ghcr.io/unsend-dev/local-ses-sns-amd64:latest \
-            --amend ghcr.io/unsend-dev/local-ses-sns-arm64:latest
+            ghcr.io/usesend/local-ses-sns:latest \
+            --amend ghcr.io/usesend/local-ses-sns-amd64:latest \
+            --amend ghcr.io/usesend/local-ses-sns-arm64:latest
 
           docker manifest create \
-            ghcr.io/unsend-dev/local-ses-sns:$GIT_SHA \
-            --amend ghcr.io/unsend-dev/local-ses-sns-amd64:$GIT_SHA \
-            --amend ghcr.io/unsend-dev/local-ses-sns-arm64:$GIT_SHA
+            ghcr.io/usesend/local-ses-sns:$GIT_SHA \
+            --amend ghcr.io/usesend/local-ses-sns-amd64:$GIT_SHA \
+            --amend ghcr.io/usesend/local-ses-sns-arm64:$GIT_SHA
 
           docker manifest create \
-            ghcr.io/unsend-dev/local-ses-sns:$APP_VERSION \
-            --amend ghcr.io/unsend-dev/local-ses-sns-amd64:$APP_VERSION \
-            --amend ghcr.io/unsend-dev/local-ses-sns-arm64:$APP_VERSION
+            ghcr.io/usesend/local-ses-sns:$APP_VERSION \
+            --amend ghcr.io/usesend/local-ses-sns-amd64:$APP_VERSION \
+            --amend ghcr.io/usesend/local-ses-sns-arm64:$APP_VERSION
 
-          docker manifest push ghcr.io/unsend-dev/local-ses-sns:latest
-          docker manifest push ghcr.io/unsend-dev/local-ses-sns:$GIT_SHA
-          docker manifest push ghcr.io/unsend-dev/local-ses-sns:$APP_VERSION
+          docker manifest push ghcr.io/usesend/local-ses-sns:latest
+          docker manifest push ghcr.io/usesend/local-ses-sns:$GIT_SHA
+          docker manifest push ghcr.io/usesend/local-ses-sns:$APP_VERSION
