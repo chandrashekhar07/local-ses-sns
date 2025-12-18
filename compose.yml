@@ -3,9 +3,8 @@ services:
     build:
       context : .
       dockerfile : Dockerfile
-    environment:
-      - WEBHOOK_URL=http://localhost:3000/api/ses_callback
-    # ports:
+    env_file:
+      - .env
       # - 3000:3000
   
 
