@@ -1,0 +1,11 @@
+services:
+  ses-sns:
+    build:
+      context : .
+      dockerfile : Dockerfile
+    environment:
+      - WEBHOOK_URL=http://localhost:3000/api/ses_callback
+    # ports:
+      # - 3000:3000
+  
+
